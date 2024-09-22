@@ -5,6 +5,15 @@
 html {
     font-family: Vazirmatn, sans-serif !important;
 }
+h2#footnote-label{
+    visibility: hidden;
+}
+ 
+h2#footnote-label::after{
+    content: "پانوشت‌ها";
+    visibility: visible;
+    display: block;
+}
 
 .breadcrumb-element p {
 	margin: 0 .5rem 0 0;
