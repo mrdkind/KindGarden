@@ -334,3 +334,42 @@ blockquote footer:before {
         scale: 1.1;
         opacity: 1;
     }
+
+
+body {
+	font-size: 1.1em;
+}
+ 
+p {
+	line-height: 2rem;
+} 
+ 
+li {
+	line-height: 2rem; 
+}
+ 
+sup {
+vertical-align: middle; //اگه توی متن از پانوشت استفاده شده باشه باعث میشه فاصله بین خطوط به هم نریزه
+}
+ 
+h2 {
+	font-size: 1.6rem;
+	margin-top: 1rem;
+	margin-bottom: -0.2rem;
+	border-bottom: 1px solid var(--lightgray);
+	padding-bottom: 0.2em;
+}
+ 
+h3 {
+	font-size: 1.30rem;
+	margin-top: 1rem;
+	margin-bottom: -0.8rem;
+}
+ 
+h4,
+h5,
+h6 {
+  font-size: 1.1rem;
+  margin-top: 1rem;
+  margin-bottom: -0.8rem;
+}
