@@ -292,3 +292,45 @@ blockquote footer:before {
     .darkmode {
         max-width: fit-content;
     }
+
+    footer {
+        opacity: 1;
+    }
+ 
+    .new-footer {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        align-items: baseline;
+    }
+ 
+    .group1 {
+        text-align: right;
+        display: flex;
+        gap: 25px;
+    }
+ 
+    .group2 {
+        text-align: left;
+        display: flex;
+        gap: 25px;
+    }
+ 
+    .footer-link {
+        display: inline-block;
+        width: 1.3em;
+        height: 1.3em;
+    }
+ 
+    .footer-svg {
+        opacity: 0.65;
+        filter: grayscale(100%);
+        transition: filter 0.3s ease;
+        transition: scale .3s ease;
+    }
+ 
+    .footer-svg:hover {
+        filter: grayscale(0%);
+        scale: 1.1;
+        opacity: 1;
+    }
