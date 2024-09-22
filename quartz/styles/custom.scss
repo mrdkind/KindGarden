@@ -251,3 +251,35 @@ blockquote .english-footer {
 blockquote footer:before {
     content: '— ';
 }
+
+
+// ریسپانسیو
+    @media (max-width: 1510px) {
+        .page>#quartz-body {
+            flex-direction: column-reverse;
+        }
+ 
+        .page>#quartz-body .sidebar.left {
+            align-items: normal;
+            flex-direction: column;
+        }
+ 
+        .page>#quartz-body .sidebar.right>* {
+            min-width: fit-content;
+        }
+ 
+        .page>#quartz-body .sidebar.right {
+            align-items: center;
+            flex-wrap: nowrap;
+        }
+    }
+ 
+// جستجو
+    .search {
+        max-width: none;
+    }
+ 
+// دارک مود
+    .darkmode {
+        max-width: fit-content;
+    }
