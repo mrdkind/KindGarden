@@ -2,20 +2,20 @@ import { QuartzConfig } from "./quartz/cfg"
 import * as Plugin from "./quartz/plugins"
 
 /**
- * Quartz 4 Configuration
+ * Quartz 4.0 Configuration
  *
  * See https://quartz.jzhao.xyz/configuration for more information.
  */
 const config: QuartzConfig = {
   configuration: {
-    pageTitle: "MrKind Garden 🧩",
+    pageTitle: "Kind Garden",
     enableSPA: true,
     enablePopovers: true,
     analytics: {
       provider: "plausible",
     },
     locale: "fa-IR",
-    baseUrl: "mrdkind.github.io/KindGarden/",
+    baseUrl: "mrdkind.github.io/KindGarden",
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "created",
     theme: {
@@ -28,7 +28,7 @@ const config: QuartzConfig = {
       },
       colors: {
         lightMode: {
-          light: "#FFFFFF",
+          light: "#F8F8F8",
           lightgray: "rgb(242, 240, 229)",
           gray: "rgb(206, 205, 195)",
           darkgray: "rgb(16, 15, 15)",
@@ -36,6 +36,7 @@ const config: QuartzConfig = {
           secondary: "rgb(139, 126, 200)",
           tertiary: "rgb(94, 64, 157)",
           highlight: "rgba(94, 64, 157, 0.15)",
+          textHighlight: "rgba(94, 64, 157, 0.15)",
         },
         darkMode: {
           light: "rgb(16, 15, 15)",
@@ -46,6 +47,7 @@ const config: QuartzConfig = {
           secondary: "#a68adf",
           tertiary: "#846aff",
           highlight: "rgba(139, 126, 200, 0.15)",
+          textHighlight: "rgba(139, 126, 200, 0.15)",
         },
       },
     },
@@ -54,7 +56,7 @@ const config: QuartzConfig = {
     transformers: [
       Plugin.FrontMatter(),
       Plugin.CreatedModifiedDate({
-        priority: ["git", "frontmatter", "filesystem"],
+        priority: ["frontmatter", "filesystem"],
       }),
       Plugin.SyntaxHighlighting({
         theme: {
@@ -69,6 +71,7 @@ const config: QuartzConfig = {
       Plugin.CrawlLinks({ markdownLinkResolution: "shortest" }),
       Plugin.Description(),
       Plugin.Latex({ renderEngine: "katex" }),
+      // Plugin.HardLineBreaks(),
     ],
     filters: [Plugin.RemoveDrafts()],
     emitters: [
@@ -84,8 +87,6 @@ const config: QuartzConfig = {
       Plugin.Assets(),
       Plugin.Static(),
       Plugin.NotFoundPage(),
-      // Comment out CustomOgImages to speed up build time
-      Plugin.CustomOgImages(),
     ],
   },
 }
