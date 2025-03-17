@@ -31,7 +31,7 @@ export const CreatedModifiedDate: QuartzTransformerPlugin<Partial<Options>> = (u
   const opts = { ...defaultOptions, ...userOpts }
   return {
     name: "CreatedModifiedDate",
-    markdownPlugins() {
+    markdownPlugins(ctx) {
       return [
         () => {
           let repo: Repository | undefined = undefined
@@ -40,29 +40,27 @@ export const CreatedModifiedDate: QuartzTransformerPlugin<Partial<Options>> = (u
             let modified: MaybeDate = undefined
             let published: MaybeDate = undefined
 
-            const fp = file.data.filePath!
-            const fullFp = path.isAbsolute(fp) ? fp : path.posix.join(file.cwd, fp)
+            const fp = file.data.relativePath!
+            const fullFp = path.posix.join(ctx.argv.directory, fp)
             for (const source of opts.priority) {
               if (source === "filesystem") {
                 const st = await fs.promises.stat(fullFp)
                 created ||= st.birthtimeMs
                 modified ||= st.mtimeMs
               } else if (source === "frontmatter" && file.data.frontmatter) {
-                created ||= file.data.frontmatter.date as MaybeDate
-                modified ||= file.data.frontmatter.lastmod as MaybeDate
-                modified ||= file.data.frontmatter.updated as MaybeDate
-                modified ||= file.data.frontmatter["last-modified"] as MaybeDate
-                published ||= file.data.frontmatter.publishDate as MaybeDate
+                created ||= file.data.frontmatter.created as MaybeDate
+                modified ||= file.data.frontmatter.modified as MaybeDate
+                published ||= file.data.frontmatter.published as MaybeDate
               } else if (source === "git") {
                 if (!repo) {
                   // Get a reference to the main git repo.
                   // It's either the same as the workdir,
                   // or 1+ level higher in case of a submodule/subtree setup
-                  repo = Repository.discover(file.cwd)
+                  repo = Repository.discover(ctx.argv.directory)
                 }
 
                 try {
-                  modified ||= await repo.getFileLatestModifiedDateAsync(file.data.filePath!)
+                  modified ||= await repo.getFileLatestModifiedDateAsync(fullFp)
                 } catch {
                   console.log(
                     chalk.yellow(
