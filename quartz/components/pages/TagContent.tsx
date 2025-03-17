@@ -6,8 +6,6 @@ import { QuartzPluginData } from "../../plugins/vfile"
 import { Root } from "hast"
 import { htmlToJsx } from "../../util/jsx"
 import { i18n } from "../../i18n"
-import { ComponentChildren } from "preact"
-import { concatenateResources } from "../../util/resources"
 
 interface TagContentOptions {
   sort?: SortFn
@@ -35,13 +33,12 @@ export default ((opts?: Partial<TagContentOptions>) => {
         (file.frontmatter?.tags ?? []).flatMap(getAllSegmentPrefixes).includes(tag),
       )
 
-    const content = (
+    const content =
       (tree as Root).children.length === 0
         ? fileData.description
         : htmlToJsx(fileData.filePath!, tree)
-    ) as ComponentChildren
     const cssClasses: string[] = fileData.frontmatter?.cssclasses ?? []
-    const classes = cssClasses.join(" ")
+    const classes = ["popover-hint", ...cssClasses].join(" ")
     if (tag === "/") {
       const tags = [
         ...new Set(
@@ -53,8 +50,8 @@ export default ((opts?: Partial<TagContentOptions>) => {
         tagItemMap.set(tag, allPagesWithTag(tag))
       }
       return (
-        <div class="popover-hint">
-          <article class={classes}>
+        <div class={classes}>
+          <article>
             <p>{content}</p>
           </article>
           <p>{i18n(cfg.locale).pages.tagContent.totalTags({ count: tags.length })}</p>
@@ -96,7 +93,7 @@ export default ((opts?: Partial<TagContentOptions>) => {
                         </>
                       )}
                     </p>
-                    <PageList limit={options.numPages} {...listProps} sort={options?.sort} />
+                    <PageList limit={options.numPages} {...listProps} sort={opts?.sort} />
                   </div>
                 </div>
               )
@@ -113,11 +110,11 @@ export default ((opts?: Partial<TagContentOptions>) => {
 
       return (
         <div class={classes}>
-          <article class="popover-hint">{content}</article>
+          <article>{content}</article>
           <div class="page-listing">
             <p>{i18n(cfg.locale).pages.tagContent.itemsUnderTag({ count: pages.length })}</p>
             <div>
-              <PageList {...listProps} sort={options?.sort} />
+              <PageList {...listProps} />
             </div>
           </div>
         </div>
@@ -125,6 +122,6 @@ export default ((opts?: Partial<TagContentOptions>) => {
     }
   }
 
-  TagContent.css = concatenateResources(style, PageList.css)
+  TagContent.css = style + PageList.css
   return TagContent
 }) satisfies QuartzComponentConstructor

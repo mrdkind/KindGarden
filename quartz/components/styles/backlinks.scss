@@ -1,7 +1,5 @@
-@use "../../styles/variables.scss" as *;
-
 .backlinks {
-  flex-direction: column;
+  position: relative;
 
   & > h3 {
     font-size: 1rem;
