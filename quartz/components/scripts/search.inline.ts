@@ -336,7 +336,7 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
 	  <p>عبارت دیگری را امتحان کنید</p>
   </a>`
 }
-    } else {
+     else {
       results.append(...finalResults.map(resultToHTML))
     }
 
